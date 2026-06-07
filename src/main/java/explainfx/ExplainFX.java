@@ -2,6 +2,7 @@ package explainfx;
 
 
 import atlantafx.base.theme.CupertinoDark;
+import explainfx.managers.DrawableManager;
 import explainfx.panels.CanvasPanel;
 import explainfx.panels.ControlPanel;
 import javafx.application.Application;
@@ -18,6 +19,8 @@ public class ExplainFX extends Application {
     private ControlPanel controlPanel;
     private CanvasPanel canvasPanel;
 
+    private DrawableManager drawableManager;
+
     public static void main(String[] args) {
         Application.setUserAgentStylesheet(new CupertinoDark().getUserAgentStylesheet());
         launch(args);
@@ -32,11 +35,13 @@ public class ExplainFX extends Application {
     public void createComponents() {
         rootPane = new StackPane();
 
+        drawableManager = new DrawableManager();
+
         controlPanel = new ControlPanel(this);
         controlPanel.setPrefSize(400, 100);
         controlPanel.setMaxHeight(100);
 
-        canvasPanel = new CanvasPanel(this);
+        canvasPanel = new CanvasPanel(this, drawableManager);
 
         rootPane.getChildren().add(canvasPanel);
         rootPane.getChildren().add(controlPanel);
