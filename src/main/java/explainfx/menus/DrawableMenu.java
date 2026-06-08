@@ -8,8 +8,10 @@ import javafx.scene.control.MenuItem;
 
 public class DrawableMenu extends ContextMenu {
 
+    private double x, y;
+
     private CanvasPanel canvasPanel;
-    private MenuItem copyItem, duplicateItem, lockItem, unlockItem, deleteItem;
+    private MenuItem copyItem, pasteItem, duplicateItem, lockItem, unlockItem, deleteItem;
 
     public DrawableMenu(CanvasPanel canvasPanel) {
         this.canvasPanel = canvasPanel;
@@ -19,16 +21,19 @@ public class DrawableMenu extends ContextMenu {
 
     public void createUI() {
         copyItem = new MenuItem("Copy");
+        pasteItem = new MenuItem("Paste");
         duplicateItem = new MenuItem("Duplicate");
         lockItem = new MenuItem("Lock");
         unlockItem = new MenuItem("Unlock");
         deleteItem = new MenuItem("Delete");
 
+        copyItem.setOnAction(e -> canvasPanel.setCopiedDrawable(canvasPanel.getSelectedDrawable()));
+        pasteItem.setOnAction(e -> canvasPanel.pasteCopiedDrawable(x, y));
         deleteItem.setOnAction(e -> deleteDrawableItem());
         lockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().lockDrawable());
         unlockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().unlockDrawable());
 
-        this.getItems().addAll(copyItem, duplicateItem, lockItem, unlockItem, deleteItem);
+        this.getItems().addAll(copyItem, pasteItem, duplicateItem, lockItem, unlockItem, deleteItem);
     }
 
     public void deleteDrawableItem() {
@@ -37,8 +42,10 @@ public class DrawableMenu extends ContextMenu {
         canvasPanel.remove(drawable);
     }
 
-    public void display(double x, double y) {
-        this.show(canvasPanel.getScene().getWindow(), x, y);
+    public void display(double screenX, double screenY, double canvasX, double canvasY) {
+        this.x = canvasX;
+        this.y = canvasY;
+        this.show(canvasPanel.getScene().getWindow(), screenX, screenY);
     }
 
 }

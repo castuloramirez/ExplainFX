@@ -39,6 +39,8 @@ public class CanvasPanel extends Group {
 
     public ArrayList<Drawable> drawables;
 
+    private Drawable copiedDrawable;
+
     private SquareDrawable activeSquare;
     private CircleDrawable activeCircle;
     private StrokeDrawable activeStroke;
@@ -64,7 +66,7 @@ public class CanvasPanel extends Group {
 
             if (e.isPopupTrigger()) {
                 System.out.println("Yeouch");
-                drawableMenu.display(e.getScreenX(), e.getSceneY());
+                drawableMenu.display(e.getScreenX(), e.getSceneY(), e.getX(), e.getY());
                 return;
             }
 
@@ -160,6 +162,27 @@ public class CanvasPanel extends Group {
         this.getChildren().remove(drawable);
     }
 
+    public void pasteCopiedDrawable(double x, double y) {
+
+        Drawable duplicatedDrawable = copiedDrawable;
+
+        switch (duplicatedDrawable) {
+            case SquareDrawable squareDrawable -> duplicatedDrawable = ((SquareDrawable) copiedDrawable).duplicate(x, y);
+            case CircleDrawable circleDrawable -> duplicatedDrawable = ((CircleDrawable) copiedDrawable).duplicate(x, y);
+            case TextDrawable textDrawable -> duplicatedDrawable = ((TextDrawable) copiedDrawable).duplicate(x, y);
+            case StrokeDrawable strokeDrawable -> duplicatedDrawable = ((StrokeDrawable) copiedDrawable).duplicate(x, y, strokeDrawable.getPolyline());
+            default -> throw new IllegalStateException("Unexpected value: " + duplicatedDrawable);
+        }
+
+
+
+
+
+        drawables.add(duplicatedDrawable);
+        this.getChildren().add(duplicatedDrawable);
+
+    }
+
     public ArrayList<Drawable> getDrawables() {
         return drawables;
     }
@@ -180,6 +203,10 @@ public class CanvasPanel extends Group {
 
     public void setDrawableState(DrawableState state) {
         this.drawableState = state;
+    }
+
+    public void setCopiedDrawable(Drawable drawable) {
+        this.copiedDrawable = drawable;
     }
 
     public DrawableState getDrawableState() {

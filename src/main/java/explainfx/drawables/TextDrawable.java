@@ -9,10 +9,12 @@ import java.util.Optional;
 public class TextDrawable extends Drawable {
 
     private Text text;
-
+    private CanvasPanel canvasPanel;
 
     public TextDrawable(CanvasPanel canvasPanel, double x, double y) {
         super(canvasPanel, x, y, 0, 0);
+
+        this.canvasPanel = canvasPanel;
 
         this.setLayoutX(x);
         this.setLayoutY(y);
@@ -27,6 +29,22 @@ public class TextDrawable extends Drawable {
 
         text = new Text(userInput);
         this.getChildren().add(text);
+    }
+
+    public TextDrawable(CanvasPanel canvasPanel, double x, double y, String copiedText) {
+        super(canvasPanel, x, y, 0, 0);
+        this.canvasPanel = canvasPanel;
+
+        this.setLayoutX(x);
+        this.setLayoutY(y);
+
+
+        text = new Text(copiedText);
+        this.getChildren().add(text);
+    }
+
+    public TextDrawable duplicate(double x, double y) {
+        return new TextDrawable(canvasPanel, x, y, text.getText());
     }
 
 
