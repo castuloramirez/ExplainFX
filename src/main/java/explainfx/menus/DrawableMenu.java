@@ -23,7 +23,10 @@ public class DrawableMenu extends ContextMenu {
         lockItem = new MenuItem("Lock");
         unlockItem = new MenuItem("Unlock");
         deleteItem = new MenuItem("Delete");
+
         deleteItem.setOnAction(e -> deleteDrawableItem());
+        lockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().lockDrawable());
+        unlockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().unlockDrawable());
 
         this.getItems().addAll(copyItem, duplicateItem, lockItem, unlockItem, deleteItem);
     }

@@ -10,6 +10,7 @@ public abstract class Drawable extends Group {
     private double x, y;
     private double width, height;
 
+    private boolean isLocked = false;
 
     protected double dragOffSetX, dragOffSetY;
     protected Color borderColor = Color.WHITE;
@@ -40,6 +41,9 @@ public abstract class Drawable extends Group {
         });
 
         this.setOnMouseDragged(e -> {
+
+            if (isLocked) return;
+
             if (canvasPanel.getDrawableState() != CanvasPanel.DrawableState.NONE) return;
             this.setLayoutX(this.getLayoutX() + e.getX() - dragOffSetX);
             this.setLayoutY(this.getLayoutY() + e.getY() - dragOffSetY);
@@ -79,6 +83,14 @@ public abstract class Drawable extends Group {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public void lockDrawable() {
+        isLocked = true;
+    }
+
+    public void unlockDrawable() {
+        isLocked = false;
     }
 
 }

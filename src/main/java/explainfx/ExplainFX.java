@@ -53,7 +53,7 @@ public class ExplainFX extends Application {
     }
 
     public void createWindow(Stage stage) {
-        Scene rootScene = new Scene(rootPane, 1200, 780, true, SceneAntialiasing.BALANCED);
+        Scene rootScene = new Scene(rootPane, 1200, 780);
         stage = new Stage();
         stage.setScene(rootScene);
         stage.setTitle("ExplainFX");

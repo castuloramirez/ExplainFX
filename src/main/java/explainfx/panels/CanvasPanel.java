@@ -1,10 +1,7 @@
 package explainfx.panels;
 
 import explainfx.ExplainFX;
-import explainfx.drawables.CircleDrawable;
-import explainfx.drawables.Drawable;
-import explainfx.drawables.SquareDrawable;
-import explainfx.drawables.StrokeDrawable;
+import explainfx.drawables.*;
 import explainfx.managers.DrawableManager;
 import explainfx.menus.DrawableMenu;
 import javafx.scene.Group;
@@ -45,6 +42,7 @@ public class CanvasPanel extends Group {
     private SquareDrawable activeSquare;
     private CircleDrawable activeCircle;
     private StrokeDrawable activeStroke;
+    private TextDrawable activeText;
 
     private final int canvasSize = 3000;
 
@@ -85,6 +83,10 @@ public class CanvasPanel extends Group {
                 activeStroke = new StrokeDrawable(this, anchorX, anchorY);
                 this.getChildren().add(activeStroke);
                 addDrawableToList(activeStroke);
+            } else if (drawableState == DrawableState.TEXT) {
+                activeText = new TextDrawable(this, e.getX(), e.getY());
+                this.getChildren().add(activeText);
+                addDrawableToList(activeText);
             }
         });
 

@@ -1,0 +1,34 @@
+package explainfx.drawables;
+
+import explainfx.panels.CanvasPanel;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.text.Text;
+
+import java.util.Optional;
+
+public class TextDrawable extends Drawable {
+
+    private Text text;
+
+
+    public TextDrawable(CanvasPanel canvasPanel, double x, double y) {
+        super(canvasPanel, x, y, 0, 0);
+
+        this.setLayoutX(x);
+        this.setLayoutY(y);
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Enter text");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Text: ");
+
+        Optional<String> input = dialog.showAndWait();
+        String userInput = input.get();
+
+        text = new Text(userInput);
+        this.getChildren().add(text);
+    }
+
+
+
+}
