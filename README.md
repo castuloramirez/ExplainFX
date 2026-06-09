@@ -43,4 +43,5 @@ https://www.jetbrains.com/idea/download/?section=windows
 Open to contributions! The code is a bit messy now, will clean it up later. Check out the Contributing Guidelines for more!
 
 ## Credits 
-All icons used in the application are from icons8.com. Used for non-commercial use only.
+1. All icons used in the application are from icons8.com. Used for non-commercial use only.
+2. Special thanks to [mkpaz](https://github.com/mkpaz) for [AtlantaFX](https://github.com/mkpaz/atlantafx) for it's amazing CupertinoDark theme
