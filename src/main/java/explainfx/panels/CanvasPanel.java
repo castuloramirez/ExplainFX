@@ -32,7 +32,7 @@ public class CanvasPanel extends Group {
 
     private Canvas canvas;
 
-    private double mouseX, mouseY;
+    private double panStartX, panStartY;
     private double anchorX, anchorY;
     private Drawable selectedDrawable;
     private DrawableState drawableState;
@@ -57,17 +57,21 @@ public class CanvasPanel extends Group {
 
         drawableState = DrawableState.NONE;
 
-        this.setOnMouseMoved(e -> {
-            mouseX = e.getX();
-            mouseY = e.getY();
-        });
-
         this.setOnMousePressed(e -> {
 
             if (e.isPopupTrigger()) {
                 System.out.println("Yeouch");
                 drawableMenu.display(e.getScreenX(), e.getSceneY(), e.getX(), e.getY());
                 return;
+            }
+
+            if (drawableState == DrawableState.NONE) {
+
+                panStartX = e.getSceneX() - this.getTranslateX();
+                panStartY = e.getSceneY() - this.getTranslateY();
+
+                return;
+
             }
 
             anchorX = e.getX();
@@ -93,6 +97,13 @@ public class CanvasPanel extends Group {
         });
 
         this.setOnMouseDragged(e -> {
+
+            // mouseDragged
+            if (drawableState == DrawableState.NONE) {
+                this.setTranslateX(e.getSceneX() - panStartX);
+                this.setTranslateY(e.getSceneY() - panStartY);
+                return;
+            }
 
             if (Objects.requireNonNull(drawableState) == DrawableState.SHAPE_SQUARE) {
                 if (activeSquare == null) return;
