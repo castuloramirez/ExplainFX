@@ -47,7 +47,7 @@ public class CanvasPanel extends Group {
     private TextDrawable activeText;
 
     private final int canvasSize = 3000;
-    public int drawableSize = 2;
+    public int drawableSize = 5;
     public Color selectedColor = Color.WHITE;
 
     public CanvasPanel(ExplainFX explainFX, DrawableManager drawableManager) {
