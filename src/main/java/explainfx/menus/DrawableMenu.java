@@ -5,6 +5,7 @@ import explainfx.panels.CanvasPanel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 
 public class DrawableMenu extends ContextMenu {
 
@@ -39,7 +40,7 @@ public class DrawableMenu extends ContextMenu {
         lockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().lockDrawable());
         unlockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().unlockDrawable());
 
-        this.getItems().addAll(copyItem, pasteItem, duplicateItem, lockItem, unlockItem, deleteItem);
+        this.getItems().addAll(copyItem, pasteItem, duplicateItem, new SeparatorMenuItem(), lockItem, unlockItem, new SeparatorMenuItem(), deleteItem);
     }
 
     public void deleteDrawableItem() {

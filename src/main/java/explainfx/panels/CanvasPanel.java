@@ -100,8 +100,11 @@ public class CanvasPanel extends Group {
 
         this.setOnMouseDragged(e -> {
 
+            if (e.isPopupTrigger()) return;
+
             // mouseDragged
             if (drawableState == DrawableState.NONE) {
+
                 this.setTranslateX(e.getSceneX() - panStartX);
                 this.setTranslateY(e.getSceneY() - panStartY);
                 return;

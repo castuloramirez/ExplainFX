@@ -3,6 +3,7 @@ package explainfx.drawables;
 import explainfx.panels.CanvasPanel;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.Optional;
@@ -29,6 +30,8 @@ public class TextDrawable extends Drawable {
         String userInput = input.get();
 
         text = new Text(userInput);
+        text.setFont(Font.font(text.getFont().getFamily(), canvasPanel.drawableSize * 5));
+
         this.getChildren().add(text);
 
         this.setOnMouseEntered(e -> {
@@ -49,8 +52,19 @@ public class TextDrawable extends Drawable {
         this.setLayoutX(x);
         this.setLayoutY(y);
 
-
         text = new Text(copiedText);
+        text.setFont(Font.font(text.getFont().getFamily(), canvasPanel.drawableSize * 5));
+
+        this.setOnMouseEntered(e -> {
+            text.setStroke(hoveredColor);
+            canvasPanel.setSelectedDrawable(this);
+        });
+
+        this.setOnMouseExited(e -> {
+            text.setStroke(drawableColor);
+            canvasPanel.setSelectedDrawable(null);
+        });
+
         this.getChildren().add(text);
     }
 

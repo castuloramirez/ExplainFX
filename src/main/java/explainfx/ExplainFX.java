@@ -49,11 +49,10 @@ public class ExplainFX extends Application {
         rootPane.setPadding(new Insets(0, 0, 20, 0));
         StackPane.setAlignment(controlPanel, Pos.BOTTOM_CENTER);
 
-
     }
 
     public void createWindow(Stage stage) {
-        Scene rootScene = new Scene(rootPane, 1200, 780);
+        Scene rootScene = new Scene(rootPane, 1280, 720);
         stage = new Stage();
         stage.setScene(rootScene);
         stage.setTitle("ExplainFX");
