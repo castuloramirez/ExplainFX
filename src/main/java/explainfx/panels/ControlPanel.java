@@ -17,17 +17,19 @@ public class ControlPanel extends VBox {
     private HBox toolbox;
     private HBox propertyBox;
 
-    private Button normalButton, markerButton , textButton, imageButton, squareButton, circleButton, arrowButton;
+    private Button normalButton, markerButton , textButton, squareButton, circleButton, arrowButton;
     private Slider sizeSlider;
     private Label sliderLabel;
-    private Button colorButton;
+    private ColorPicker colorPicker;
 
     public ControlPanel(ExplainFX explainFX) {
         this.explainFX = explainFX;
 
         this.setStyle("-fx-background-color: #141414;" +
                 "-fx-background-radius: 20;" +
-                "-fx-border-radius: 20;");
+                "-fx-border-radius: 20;" +
+                "-fx-border-color: rgba(80, 80, 80, 0.80);" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 64, 0.3, 0, 6);");
         this.setMaxWidth(500);
 
         createUI();
@@ -37,17 +39,19 @@ public class ControlPanel extends VBox {
 
     public void createUI() {
         toolbox = new HBox(10);
-        propertyBox = new HBox(5);
+        toolbox.setPadding(new Insets(0, 0, 10, 0));
+        propertyBox = new HBox(10);
 
         normalButton = createIconButton("/cursor.png");
         markerButton = createIconButton("/marker.png");
         textButton = createIconButton("/text.png");
-        imageButton = createIconButton("/image.png");
         squareButton = createIconButton("/square.png");
-        circleButton = createIconButton("/circles.png");
-        colorButton = createIconButton("/color.png");
+        circleButton = createIconButton("/circle.png");
 
-        sizeSlider = new Slider(2, 15, 2);
+        colorPicker = new ColorPicker();
+
+
+        sizeSlider = new Slider(2, 15, 5);
         sizeSlider.setShowTickLabels(true);
         sizeSlider.setShowTickMarks(true);
         sizeSlider.setMajorTickUnit(2);
@@ -67,10 +71,6 @@ public class ControlPanel extends VBox {
             explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.TEXT);
         });
 
-        imageButton.setOnAction(e -> {
-            explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.IMAGE);
-        });
-
         squareButton.setOnAction(e -> {
             explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.SHAPE_SQUARE);
         });
@@ -83,22 +83,8 @@ public class ControlPanel extends VBox {
             explainFX.getCanvasPanel().setDrawableSize(newValue.intValue());
         }));
 
-        colorButton.setOnAction(e -> {
-            ColorPicker picker = new ColorPicker(Color.WHITE);
-
-            Dialog<Color> dialog = new Dialog<>();
-            dialog.setTitle("Pick a Color");
-            dialog.getDialogPane().setContent(picker);
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-            dialog.setResultConverter(btn -> {
-                if (btn == ButtonType.OK) return picker.getValue();
-                return null;
-            });
-
-            dialog.showAndWait().ifPresent(color -> {
-                explainFX.getCanvasPanel().setDrawableColor(color);
-            });
+        colorPicker.setOnAction(e -> {
+            explainFX.getCanvasPanel().setDrawableColor(colorPicker.getValue());
         });
     }
 
@@ -107,7 +93,6 @@ public class ControlPanel extends VBox {
         toolbox.getChildren().add(normalButton);
         toolbox.getChildren().add(markerButton);
         toolbox.getChildren().add(textButton);
-        toolbox.getChildren().add(imageButton);
         toolbox.getChildren().add(squareButton);
         toolbox.getChildren().add(circleButton);
 
@@ -116,7 +101,7 @@ public class ControlPanel extends VBox {
         propertyBox.setAlignment(Pos.CENTER);
 
         propertyBox.getChildren().add(new Label("Color: "));
-        propertyBox.getChildren().add(colorButton);
+        propertyBox.getChildren().add(colorPicker);
 
         this.setPadding(new Insets(20, 20, 20, 20));
         this.getChildren().add(toolbox);
