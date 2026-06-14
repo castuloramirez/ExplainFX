@@ -17,7 +17,7 @@ public class ControlPanel extends VBox {
     private HBox toolbox;
     private HBox propertyBox;
 
-    private Button normalButton, markerButton , textButton, squareButton, circleButton, arrowButton;
+    private Button normalButton, markerButton , textButton, squareButton, circleButton, clearButton;
     private Slider sizeSlider;
     private Label sliderLabel;
     private ColorPicker colorPicker;
@@ -47,6 +47,7 @@ public class ControlPanel extends VBox {
         textButton = createIconButton("/text.png");
         squareButton = createIconButton("/square.png");
         circleButton = createIconButton("/circle.png");
+        clearButton = createIconButton("/clear_icon.png");
 
         colorPicker = new ColorPicker();
 
@@ -83,6 +84,19 @@ public class ControlPanel extends VBox {
             explainFX.getCanvasPanel().setDrawableSize(newValue.intValue());
         }));
 
+        clearButton.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Clear canvas");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to clear all the drawings?");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) explainFX.getCanvasPanel().clearAllDrawables();
+            });
+
+
+        });
+
         colorPicker.setOnAction(e -> {
             explainFX.getCanvasPanel().setDrawableColor(colorPicker.getValue());
         });
@@ -95,6 +109,7 @@ public class ControlPanel extends VBox {
         toolbox.getChildren().add(textButton);
         toolbox.getChildren().add(squareButton);
         toolbox.getChildren().add(circleButton);
+        toolbox.getChildren().add(clearButton);
 
         propertyBox.getChildren().add(sliderLabel);
         propertyBox.getChildren().add(sizeSlider);
@@ -114,8 +129,8 @@ public class ControlPanel extends VBox {
         button.setMaxHeight(50);
 
         ImageView icon = new ImageView(new Image(String.valueOf(getClass().getResource(iconPath))));
-        icon.setFitWidth(35);
-        icon.setFitHeight(35);
+        icon.setFitWidth(30);
+        icon.setFitHeight(30);
 
         button.setGraphic(icon);
 

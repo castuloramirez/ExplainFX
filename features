@@ -1,12 +1,11 @@
-Control panel
+Features to be added
 
-Marker, Eraser Text, Image, Shape | Color
- Size                             |
-
-
- Option specifics
-
- 1. Marker / Eraser - Width
- 2. Text - Size
- 3. Image - Size
- 4. Shape - Size
+- Stroke preview
+- Text drag
+- Clear all drawings
+- Text modification
+- Undo / Redo
+- Tooltips
+- Menubar
+- Update notifications
+- Zoom in zoom outs

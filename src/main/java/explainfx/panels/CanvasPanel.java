@@ -2,14 +2,15 @@ package explainfx.panels;
 
 import explainfx.ExplainFX;
 import explainfx.drawables.*;
-import explainfx.managers.DrawableManager;
 import explainfx.menus.DrawableMenu;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class CanvasPanel extends Group {
@@ -27,7 +28,6 @@ public class CanvasPanel extends Group {
     }
 
     public ExplainFX explainFX;
-    private DrawableManager drawableManager;
     private DrawableMenu drawableMenu;
 
     private Canvas canvas;
@@ -50,9 +50,8 @@ public class CanvasPanel extends Group {
     public int drawableSize = 5;
     public Color selectedColor = Color.WHITE;
 
-    public CanvasPanel(ExplainFX explainFX, DrawableManager drawableManager) {
+    public CanvasPanel(ExplainFX explainFX) {
         this.explainFX = explainFX;
-        this.drawableManager = drawableManager;
 
         drawableMenu = new DrawableMenu(this);
         drawables = new ArrayList<>(20);
@@ -176,6 +175,11 @@ public class CanvasPanel extends Group {
     public void remove(Drawable drawable) {
         drawables.remove(drawable);
         this.getChildren().remove(drawable);
+    }
+
+    public void clearAllDrawables() {
+        this.getChildren().removeAll(drawables);
+        drawables.clear();
     }
 
     public void pasteCopiedDrawable(double x, double y) {
