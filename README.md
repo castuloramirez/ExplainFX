@@ -2,7 +2,7 @@
 
 A minimal, simple and easy to use canvas tool created in JavaFX. Can be used to explain concepts during presentations or meetings. Inspired by https://excalidraw.com 
 
-<img width="1279" height="743" alt="explainFX" src="https://github.com/user-attachments/assets/e68b5bf1-700f-41ef-8d57-587cee0db578" />
+<img width="1279" height="748" alt="Screenshot 2026-06-15 at 1 05 24 PM" src="https://github.com/user-attachments/assets/d8d6b5b1-0973-48d2-a981-0e471b213314" />
 
 It's a very basic canvas app with only the most basic features. I created this for fun (I love JavaFX) but I will be slowly be adding more features. Developed with Java 21 and JavaFX 21. 
 
