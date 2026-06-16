@@ -42,12 +42,12 @@ public class ControlPanel extends VBox {
         toolbox.setPadding(new Insets(0, 0, 10, 0));
         propertyBox = new HBox(10);
 
-        normalButton = createIconButton("/cursor.png");
-        markerButton = createIconButton("/marker.png");
-        textButton = createIconButton("/text.png");
-        squareButton = createIconButton("/square.png");
-        circleButton = createIconButton("/circle.png");
-        clearButton = createIconButton("/clear_icon.png");
+        normalButton = createIconButton("/cursor.png", "Cursor mode");
+        markerButton = createIconButton("/marker.png", "Draw");
+        textButton = createIconButton("/text.png", "Add text");
+        squareButton = createIconButton("/square.png", "Draw Square");
+        circleButton = createIconButton("/circle.png", "Draw circle");
+        clearButton = createIconButton("/clear_icon.png", "Clear all drawings");
 
         colorPicker = new ColorPicker();
 
@@ -56,7 +56,8 @@ public class ControlPanel extends VBox {
         sizeSlider.setShowTickLabels(true);
         sizeSlider.setShowTickMarks(true);
         sizeSlider.setMajorTickUnit(2);
-        sliderLabel = new Label("Size");
+        sliderLabel = new Label("Stroke Size");
+
     }
 
     private void createListeners() {
@@ -69,6 +70,13 @@ public class ControlPanel extends VBox {
 
 
         textButton.setOnAction(e -> {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Enter text");
+            dialog.setHeaderText(null);
+            dialog.setContentText("Text: ");
+
+            dialog.showAndWait();
+            explainFX.getCanvasPanel().setInputTextData(dialog.getResult());
             explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.TEXT);
         });
 
@@ -123,8 +131,10 @@ public class ControlPanel extends VBox {
         this.getChildren().add(propertyBox);
     }
 
-    public Button createIconButton(String iconPath) {
+    public Button createIconButton(String iconPath, String tooltipText) {
         Button button = new Button();
+        button.setTooltip(new Tooltip(tooltipText));
+
         button.setMaxWidth(50);
         button.setMaxHeight(50);
 

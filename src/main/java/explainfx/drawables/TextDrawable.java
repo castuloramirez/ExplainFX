@@ -1,6 +1,7 @@
 package explainfx.drawables;
 
 import explainfx.panels.CanvasPanel;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -13,7 +14,7 @@ public class TextDrawable extends Drawable {
     private Text text;
     private CanvasPanel canvasPanel;
 
-    public TextDrawable(CanvasPanel canvasPanel, double x, double y) {
+    public TextDrawable(String textdata,CanvasPanel canvasPanel, double x, double y) {
         super(canvasPanel, x, y, 0, 0);
 
         this.canvasPanel = canvasPanel;
@@ -21,15 +22,10 @@ public class TextDrawable extends Drawable {
         this.setLayoutX(x);
         this.setLayoutY(y);
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Enter text");
-        dialog.setHeaderText(null);
-        dialog.setContentText("Text: ");
 
-        Optional<String> input = dialog.showAndWait();
-        String userInput = input.get();
 
-        text = new Text(userInput);
+
+        text = new Text(textdata);
         text.setFont(Font.font(text.getFont().getFamily(), canvasPanel.drawableSize * 5));
 
         this.getChildren().add(text);
@@ -66,6 +62,14 @@ public class TextDrawable extends Drawable {
         });
 
         this.getChildren().add(text);
+    }
+
+    public void update(double width, double height) {
+
+        int factor = (int) (width + height) / 30;
+        System.out.println(factor);
+
+        text.setFont(Font.font(text.getFont().getFamily(), canvasPanel.drawableSize * factor));
     }
 
     public TextDrawable duplicate(double x, double y) {

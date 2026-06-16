@@ -46,6 +46,7 @@ public class CanvasPanel extends Group {
     private CircleDrawable activeCircle;
     private StrokeDrawable activeStroke;
     private TextDrawable activeText;
+    private String inputTextData;
 
     private final int canvasSize = 3000;
     public int drawableSize = 5;
@@ -92,7 +93,7 @@ public class CanvasPanel extends Group {
                 this.getChildren().add(activeStroke);
                 addDrawableToList(activeStroke);
             } else if (drawableState == DrawableState.TEXT) {
-                activeText = new TextDrawable(this, e.getX(), e.getY());
+                activeText = new TextDrawable(inputTextData, this, e.getX(), e.getY());
                 this.getChildren().add(activeText);
                 addDrawableToList(activeText);
             }
@@ -135,6 +136,11 @@ public class CanvasPanel extends Group {
 
                 activeStroke.addPoint(e.getX(), e.getY());
 
+            } else if (drawableState == DrawableState.TEXT) {
+                double width = Math.abs(e.getX() - anchorX);
+                double height = Math.abs(e.getY() - anchorY);
+
+                activeText.update(width, height);
             }
 
         });
@@ -206,7 +212,9 @@ public class CanvasPanel extends Group {
 
     }
 
-
+    public void setInputTextData(String data) {
+        this.inputTextData = data;
+    }
 
     public ArrayList<Drawable> getDrawables() {
         return drawables;
