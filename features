@@ -1,7 +1,7 @@
 Features to be added
 
 - Stroke preview
-- Text drag
+- Text drag- done
 - Clear all drawings
 - Text modification
 - Undo / Redo
@@ -11,3 +11,11 @@ Features to be added
 - Zoom in zoom outs
 - save and load files
 - more shapess (arrows, pentagons, triangles)
+
+
+for 1.1 :
+
+- Stroke preview
+- Text drag - done
+- Tooltips - done
+- save and load files

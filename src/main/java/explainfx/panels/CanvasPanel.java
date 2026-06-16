@@ -7,7 +7,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +52,7 @@ public class CanvasPanel extends Group {
 
     private final int canvasSize = 3000;
     public int drawableSize = 5;
+    public Circle strokeSizePreviewCircle;
     public Color selectedColor = Color.WHITE;
 
     public CanvasPanel(ExplainFX explainFX) {
@@ -156,6 +159,10 @@ public class CanvasPanel extends Group {
     }
 
     public void createUI() {
+        strokeSizePreviewCircle = new Circle(1500, 1500, drawableSize);
+        strokeSizePreviewCircle.setFill(Color.WHITE);
+
+
         canvas = new Canvas(canvasSize, canvasSize);
         this.getChildren().add(canvas);
 
@@ -240,6 +247,9 @@ public class CanvasPanel extends Group {
 
     public void setDrawableSize(int size) {
         this.drawableSize = size;
+
+        strokeSizePreviewCircle.setRadius((double) size / 2 );
+
     }
 
     public void setDrawableColor(Color color) {

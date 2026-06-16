@@ -43,11 +43,13 @@ public class ExplainFX extends Application {
     public void createComponents() {
         rootPane = new StackPane();
 
+        canvasPanel = new CanvasPanel(this);
+
         controlPanel = new ControlPanel(this);
         controlPanel.setPrefSize(400, 100);
         controlPanel.setMaxHeight(100);
 
-        canvasPanel = new CanvasPanel(this);
+
 
         rootPane.getChildren().add(canvasPanel);
         rootPane.getChildren().add(controlPanel);

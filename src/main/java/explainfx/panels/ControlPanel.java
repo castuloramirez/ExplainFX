@@ -52,10 +52,10 @@ public class ControlPanel extends VBox {
         colorPicker = new ColorPicker();
 
 
-        sizeSlider = new Slider(2, 15, 5);
+        sizeSlider = new Slider(2, 20, 5);
         sizeSlider.setShowTickLabels(true);
         sizeSlider.setShowTickMarks(true);
-        sizeSlider.setMajorTickUnit(2);
+        sizeSlider.setMajorTickUnit(4);
         sliderLabel = new Label("Stroke Size");
 
     }
@@ -119,7 +119,11 @@ public class ControlPanel extends VBox {
         toolbox.getChildren().add(circleButton);
         toolbox.getChildren().add(clearButton);
 
-        propertyBox.getChildren().add(sliderLabel);
+        VBox box = new VBox(5);
+        box.setAlignment(Pos.CENTER);
+        box.getChildren().addAll(sliderLabel, explainFX.getCanvasPanel().strokeSizePreviewCircle);
+
+        propertyBox.getChildren().add(box);
         propertyBox.getChildren().add(sizeSlider);
         propertyBox.setAlignment(Pos.CENTER);
 
