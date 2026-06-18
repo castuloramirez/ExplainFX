@@ -1,0 +1,7 @@
+- Added stroke size preview
+- Smoothened stroke drawable
+- Added tooltips on UI elements
+- added reset all drawings button
+- Added dynamic text resizing during creation
+
+- fixed bug where pasting/duplicating sometimes wouldnt work

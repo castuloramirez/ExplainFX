@@ -25,7 +25,7 @@ public class CircleDrawable extends Drawable {
         });
 
         this.setOnMouseExited(e -> {
-            ellipse.setStroke(Color.WHITE);
+            ellipse.setStroke(drawableColor);
             canvasPanel.setSelectedDrawable(null);
         });
 

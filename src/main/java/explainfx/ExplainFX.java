@@ -49,8 +49,6 @@ public class ExplainFX extends Application {
         controlPanel.setPrefSize(400, 100);
         controlPanel.setMaxHeight(100);
 
-
-
         rootPane.getChildren().add(canvasPanel);
         rootPane.getChildren().add(controlPanel);
         rootPane.setPadding(new Insets(0, 0, 20, 0));

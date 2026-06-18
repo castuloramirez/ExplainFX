@@ -14,7 +14,7 @@ public class TextDrawable extends Drawable {
     private Text text;
     private CanvasPanel canvasPanel;
 
-    public TextDrawable(String textdata,CanvasPanel canvasPanel, double x, double y) {
+    public TextDrawable(String textdata, CanvasPanel canvasPanel, double x, double y) {
         super(canvasPanel, x, y, 0, 0);
 
         this.canvasPanel = canvasPanel;
@@ -22,21 +22,19 @@ public class TextDrawable extends Drawable {
         this.setLayoutX(x);
         this.setLayoutY(y);
 
-
-
-
         text = new Text(textdata);
+        text.setFill(drawableColor);
         text.setFont(Font.font(text.getFont().getFamily(), canvasPanel.drawableSize * 5));
 
         this.getChildren().add(text);
 
         this.setOnMouseEntered(e -> {
-            text.setStroke(hoveredColor);
+            text.setFill(hoveredColor);
             canvasPanel.setSelectedDrawable(this);
         });
 
         this.setOnMouseExited(e -> {
-            text.setStroke(drawableColor);
+            text.setFill(drawableColor);
             canvasPanel.setSelectedDrawable(null);
         });
     }
@@ -52,12 +50,12 @@ public class TextDrawable extends Drawable {
         text.setFont(Font.font(text.getFont().getFamily(), canvasPanel.drawableSize * 5));
 
         this.setOnMouseEntered(e -> {
-            text.setStroke(hoveredColor);
+            text.setFill(hoveredColor);
             canvasPanel.setSelectedDrawable(this);
         });
 
         this.setOnMouseExited(e -> {
-            text.setStroke(drawableColor);
+            text.setFill(drawableColor);
             canvasPanel.setSelectedDrawable(null);
         });
 
