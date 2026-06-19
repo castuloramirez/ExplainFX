@@ -5,3 +5,4 @@
 - Added dynamic text resizing during creation
 
 - fixed bug where pasting/duplicating sometimes wouldnt work
+- fixed bug where circles were not following the selected color

@@ -37,6 +37,21 @@ public class TextDrawable extends Drawable {
             text.setFill(drawableColor);
             canvasPanel.setSelectedDrawable(null);
         });
+
+        this.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                System.out.println("Text double click!");
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Enter text");
+                dialog.setHeaderText(null);
+                dialog.setContentText("Text: ");
+
+                dialog.showAndWait();
+
+                String updatedText = dialog.getResult();
+                text.setText(updatedText);
+            }
+        });
     }
 
     public TextDrawable(CanvasPanel canvasPanel, double x, double y, String copiedText) {
