@@ -27,7 +27,7 @@ public class ExplainFX extends Application {
         if (Taskbar.isTaskbarSupported()) {
             var taskbar = Taskbar.getTaskbar();
             if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
-                taskbar.setIconImage(new ImageIcon(ExplainFX.class.getResource("/icon.png")).getImage());
+                taskbar.setIconImage(new ImageIcon(ExplainFX.class.getResource("/installer/explainFX_icon.png")).getImage());
             }
         }
 

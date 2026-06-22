@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "explainfx"
-version = "1.0.0"
+version = "1.1"
 
 repositories {
     mavenCentral()
@@ -52,4 +52,22 @@ jlink {
     launcher {
         name = "ExplainFX"
     }
+
+    jpackage {
+        imageName = "ExplainFX"
+        installerName = "ExplainFX Installer"
+        appVersion = "$version"
+
+        icon = when {
+            org.gradle.internal.os.OperatingSystem.current().isWindows -> "src/main/resources/icons/app.ico"
+            org.gradle.internal.os.OperatingSystem.current().isMacOsX  -> "src/main/resources/installer/explainFX_icon_mac.icns"
+            else -> "src/main/resources/icons/app.png"
+        }
+
+        installerOptions = listOf(
+            "--description", "A simple, minimal drawing canvas app.",
+            "--vendor", "Gufran Thakur"
+        )
+    }
+
 }
