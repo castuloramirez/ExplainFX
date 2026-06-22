@@ -1,8 +1,7 @@
-package explainfx.menus;
+package explainfx.ui;
 
 import explainfx.drawables.Drawable;
 import explainfx.panels.CanvasPanel;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
@@ -12,7 +11,7 @@ public class DrawableMenu extends ContextMenu {
     private double x, y;
 
     private CanvasPanel canvasPanel;
-    private MenuItem copyItem, pasteItem, duplicateItem, lockItem, unlockItem, deleteItem;
+    private MenuItem copyItem, pasteItem, duplicateItem, lockItem, unlockItem, deleteItem, backItem;
 
     public DrawableMenu(CanvasPanel canvasPanel) {
         this.canvasPanel = canvasPanel;
@@ -27,6 +26,7 @@ public class DrawableMenu extends ContextMenu {
         lockItem = new MenuItem("Lock");
         unlockItem = new MenuItem("Unlock");
         deleteItem = new MenuItem("Delete");
+        backItem = new MenuItem("Back");
 
         copyItem.setOnAction(e -> canvasPanel.setCopiedDrawable(canvasPanel.getSelectedDrawable()));
         pasteItem.setOnAction(e -> canvasPanel.pasteCopiedDrawable(x, y));
@@ -41,7 +41,24 @@ public class DrawableMenu extends ContextMenu {
         lockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().lockDrawable());
         unlockItem.setOnAction(e -> canvasPanel.getSelectedDrawable().unlockDrawable());
 
-        this.getItems().addAll(copyItem, pasteItem, duplicateItem, new SeparatorMenuItem(), lockItem, unlockItem, new SeparatorMenuItem(), deleteItem);
+        this.getItems().addAll(copyItem, pasteItem, duplicateItem,
+                new SeparatorMenuItem(),
+                lockItem, unlockItem,
+                new SeparatorMenuItem(),
+                deleteItem,
+                new SeparatorMenuItem(),
+                backItem);
+
+        this.showingProperty().addListener((obs, wasShowing, isShowing) -> {
+            if (isShowing) {
+                this.getScene().setOnMouseExited(e -> {
+                    canvasPanel.requestFocus();
+                    this.hide();
+                });
+            }
+        });
+
+
     }
 
     public void deleteDrawableItem() {

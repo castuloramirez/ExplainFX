@@ -1,6 +1,7 @@
 package explainfx.panels;
 
 import explainfx.ExplainFX;
+import explainfx.ui.CustomButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -8,7 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 public class ControlPanel extends VBox {
 
@@ -17,11 +19,12 @@ public class ControlPanel extends VBox {
     private HBox toolbox;
     private HBox propertyBox;
 
-    private Button normalButton, markerButton , textButton, squareButton, circleButton, clearButton;
+    public CustomButton viewModeButton, drawModeButton, textModeButton, squareModeButton, circleModeButton, clearButton;
     private Slider sizeSlider;
     private Label sliderLabel;
     private ColorPicker colorPicker;
 
+    public ArrayList<Button> controlPanelButtons;
     public ControlPanel(ExplainFX explainFX) {
         this.explainFX = explainFX;
 
@@ -31,6 +34,8 @@ public class ControlPanel extends VBox {
                 "-fx-border-color: rgba(80, 80, 80, 0.80);" +
                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 64, 0.3, 0, 6);");
         this.setMaxWidth(500);
+
+        controlPanelButtons = new ArrayList<>(6);
 
         createUI();
         createListeners();
@@ -42,12 +47,12 @@ public class ControlPanel extends VBox {
         toolbox.setPadding(new Insets(0, 0, 10, 0));
         propertyBox = new HBox(10);
 
-        normalButton = createIconButton("/cursor.png", "Cursor mode");
-        markerButton = createIconButton("/marker.png", "Draw");
-        textButton = createIconButton("/text.png", "Add text");
-        squareButton = createIconButton("/square.png", "Draw Square");
-        circleButton = createIconButton("/circle.png", "Draw circle");
-        clearButton = createIconButton("/clear_icon.png", "Clear all drawings");
+        viewModeButton = new CustomButton(this, "/cursor.png", "VIEW", "View mode (V)");
+        drawModeButton = new CustomButton(this,"/marker.png", "DRAW", "Draw (D)");
+        textModeButton = new CustomButton(this,"/text.png", "TEXT", "Text (T)");
+        squareModeButton = new CustomButton(this,"/square.png", "SQUARE", "Square (S)");
+        circleModeButton = new CustomButton(this,"/circle.png", "CIRCLE", "Circle (C)");
+        clearButton = new CustomButton(this,"/clear_icon.png", "CLEAR","Clear all drawings");
 
         colorPicker = new ColorPicker();
 
@@ -61,36 +66,6 @@ public class ControlPanel extends VBox {
     }
 
     private void createListeners() {
-
-        normalButton.setOnAction(e -> explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.NONE));
-
-        markerButton.setOnAction(e -> {
-            explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.STROKE);
-        });
-
-
-        textButton.setOnAction(e -> {
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Enter text");
-            dialog.setHeaderText(null);
-            dialog.setContentText("Text: ");
-
-            dialog.showAndWait();
-            explainFX.getCanvasPanel().setInputTextData(dialog.getResult());
-            explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.TEXT);
-        });
-
-        squareButton.setOnAction(e -> {
-            explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.SHAPE_SQUARE);
-        });
-
-        circleButton.setOnAction(e -> {
-            explainFX.getCanvasPanel().setDrawableState(CanvasPanel.DrawableState.SHAPE_CIRCLE);
-        });
-
-        sizeSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
-            explainFX.getCanvasPanel().setDrawableSize(newValue.intValue());
-        }));
 
         clearButton.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -112,12 +87,18 @@ public class ControlPanel extends VBox {
 
     public void addComponents() {
         toolbox.setAlignment(Pos.CENTER);
-        toolbox.getChildren().add(normalButton);
-        toolbox.getChildren().add(markerButton);
-        toolbox.getChildren().add(textButton);
-        toolbox.getChildren().add(squareButton);
-        toolbox.getChildren().add(circleButton);
+        toolbox.getChildren().add(viewModeButton);
+        toolbox.getChildren().add(drawModeButton);
+        toolbox.getChildren().add(textModeButton);
+        toolbox.getChildren().add(squareModeButton);
+        toolbox.getChildren().add(circleModeButton);
         toolbox.getChildren().add(clearButton);
+
+        controlPanelButtons.add(viewModeButton);
+        controlPanelButtons.add(drawModeButton);
+        controlPanelButtons.add(textModeButton);
+        controlPanelButtons.add(squareModeButton);
+        controlPanelButtons.add(circleModeButton);
 
         VBox box = new VBox(5);
         box.setAlignment(Pos.CENTER);
@@ -135,20 +116,8 @@ public class ControlPanel extends VBox {
         this.getChildren().add(propertyBox);
     }
 
-    public Button createIconButton(String iconPath, String tooltipText) {
-        Button button = new Button();
-        button.setTooltip(new Tooltip(tooltipText));
-
-        button.setMaxWidth(50);
-        button.setMaxHeight(50);
-
-        ImageView icon = new ImageView(new Image(String.valueOf(getClass().getResource(iconPath))));
-        icon.setFitWidth(30);
-        icon.setFitHeight(30);
-
-        button.setGraphic(icon);
-
-        return button;
+    public ExplainFX getExplainFX() {
+        return explainFX;
     }
 
 }

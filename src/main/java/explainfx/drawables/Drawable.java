@@ -49,7 +49,7 @@ public abstract class Drawable extends Group {
 
             if (isLocked) return;
 
-            if (canvasPanel.getDrawableState() != CanvasPanel.DrawableState.NONE) return;
+            if (canvasPanel.getDrawableState() != CanvasPanel.DrawableState.VIEW_MODE) return;
             this.setLayoutX(this.getLayoutX() + e.getX() - dragOffSetX);
             this.setLayoutY(this.getLayoutY() + e.getY() - dragOffSetY);
             e.consume();

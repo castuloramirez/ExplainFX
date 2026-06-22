@@ -64,6 +64,10 @@ public class ExplainFX extends Application {
         stage.show();
     }
 
+    public ControlPanel getControlPanel() {
+        return controlPanel;
+    }
+
     public CanvasPanel getCanvasPanel() {
         return canvasPanel;
     }

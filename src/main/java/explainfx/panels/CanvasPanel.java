@@ -2,8 +2,9 @@ package explainfx.panels;
 
 import explainfx.ExplainFX;
 import explainfx.drawables.*;
+import explainfx.handlers.KeyboardEventHandler;
 import explainfx.handlers.MouseEventHandler;
-import explainfx.menus.DrawableMenu;
+import explainfx.ui.DrawableMenu;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,7 +18,7 @@ public class CanvasPanel extends Group {
 
 
     public enum DrawableState {
-        NONE, STROKE, TEXT, SHAPE_SQUARE, SHAPE_CIRCLE,
+        VIEW_MODE, DRAW_MODE, TEXT_MODE, SQUARE_MODE, CIRCLE_MODE,
     }
 
     // Core stuff
@@ -42,19 +43,28 @@ public class CanvasPanel extends Group {
     public Color selectedColor = Color.WHITE;
 
     private MouseEventHandler mouseEventHandler;
+    private KeyboardEventHandler keyboardEventHandler;
 
     public CanvasPanel(ExplainFX explainFX) {
         this.explainFX = explainFX;
 
         mouseEventHandler = new MouseEventHandler(this);
+        keyboardEventHandler = new KeyboardEventHandler(this);
 
         drawableMenu = new DrawableMenu(this);
         drawables = new ArrayList<>(20);
 
-        drawableState = DrawableState.NONE;
+        drawableState = DrawableState.VIEW_MODE;
 
         this.setOnMousePressed(e -> mouseEventHandler.handleMousePressed(e));
         this.setOnMouseDragged(e -> mouseEventHandler.handleMouseDrag(e));
+
+        // In CanvasPanel constructor, after scene is available
+        this.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.setOnKeyPressed(e -> keyboardEventHandler.handleKeyPressed(e));
+            }
+        });
 
         this.setOnMouseReleased(e -> {
             activeSquare = null;
