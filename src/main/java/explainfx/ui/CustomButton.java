@@ -22,9 +22,7 @@ public class CustomButton extends Button {
 
         this.setTooltip(new Tooltip(tooltipText));
 
-        this.setStyle("-fx-background-color: #2d2d2d;" +
-                "-fx-border-radius: 10;" +
-                "-fx-background-radius: 10;");
+        this.setStyle("-fx-background-color: #2d2d2d;");
 
         this.setMaxWidth(50);
         this.setMaxHeight(50);

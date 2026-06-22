@@ -67,6 +67,10 @@ public class ControlPanel extends VBox {
 
     private void createListeners() {
 
+        sizeSlider.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            explainFX.getCanvasPanel().setDrawableSize(newValue.intValue());
+        }));
+
         clearButton.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Clear canvas");
